@@ -2,6 +2,6 @@
 #include “myProject.h”
 int main(void)
 {
-printf (“Chief name is [조장이름]\n”);
+printf (“Chief name is [Jeong Seong In]\n”);
 printMyName1();
 }
