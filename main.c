@@ -3,6 +3,6 @@
 
 int main(void)
 {
-	printf("Chief name is [Jeong Seong In]\n");
+	printf("Chief name is [정성인]\n");
 	printMyName1();
 }
