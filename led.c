@@ -25,7 +25,7 @@ int ledOnOff(int ledNum, int onOff)
     ledValue = ledValue & (~i);
     if(onOff != 0)
     {
-        ledValue != i;
+        ledValue |= i;
     }
     ledLibRaw(ledValue);
 
