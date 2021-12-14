@@ -21,9 +21,144 @@ char gBuzzerBaseSysDir[128]; //  /sys/bus/platform/devices/peribuzzer.숫자 가
 
 static int fp = 0;
 
-const int musicScale[MAX_SCALE_STEP] = 
+
+typedef int element;
+
+typedef struct ListNode {
+    element data;
+    struct ListNode *link;
+}ListNode;
+
+ListNode *head1 = NULL;
+ListNode *head2 = NULL;
+ListNode *head3 = NULL;
+ListNode *head4 = NULL;
+ListNode *head5 = NULL;
+
+ListNode *insert_last1(element data)
+{
+    ListNode *node = (ListNode *)malloc(sizeof(ListNode));
+    node->data = data;
+
+    if(head1 == NULL)
+    {
+        head1 = node;
+        node->link = head1;
+    }
+    else
+    {
+        node->link = head1->link;
+        head1->link = node;
+        head1 = node;
+    }
+
+    return head1;
+}
+
+ListNode *insert_last2(element data)
+{
+    ListNode *node = (ListNode *)malloc(sizeof(ListNode));
+    node->data = data;
+
+    if(head2 == NULL)
+    {
+        head2 = node;
+        node->link = head2;
+    }
+    else
+    {
+        node->link = head2->link;
+        head2->link = node;
+        head2 = node;
+    }
+
+    return head2;
+}
+
+ListNode *insert_last3(element data)
+{
+    ListNode *node = (ListNode *)malloc(sizeof(ListNode));
+    node->data = data;
+
+    if(head3 == NULL)
+    {
+        head3 = node;
+        node->link = head3;
+    }
+    else
+    {
+        node->link = head3->link;
+        head3->link = node;
+        head3 = node;
+    }
+
+    return head3;
+}
+
+ListNode *insert_last4(element data)
+{
+    ListNode *node = (ListNode *)malloc(sizeof(ListNode));
+    node->data = data;
+
+    if(head4 == NULL)
+    {
+        head4 = node;
+        node->link = head4;
+    }
+    else
+    {
+        node->link = head4->link;
+        head4->link = node;
+        head4 = node;
+    }
+
+    return head4;
+}
+
+ListNode *insert_last5(element data)
+{
+    ListNode *node = (ListNode *)malloc(sizeof(ListNode));
+    node->data = data;
+
+    if(head5 == NULL)
+    {
+        head5 = node;
+        node->link = head5;
+    }
+    else
+    {
+        node->link = head5->link;
+        head5->link = node;
+        head5 = node;
+    }
+
+    return head5;
+}
+
+
+const int musicScale1[MAX_SCALE_STEP] = 
 {
     /*do*/262, 294, 330, 349, 392, 440, 494, 523/*si*/
+};
+
+const int musicScale2[MAX_SCALE_STEP] = 
+{
+    /*do*/523, 294, 330, 349, 392, 440, 494, 523/*si*/
+};
+
+const int musicScale3[MAX_SCALE_STEP] = 
+{
+    /*do*/494, 294, 330, 349, 392, 440, 494, 523/*si*/
+};
+
+const int musicScale4[MAX_SCALE_STEP] = 
+{
+    /*do*/440, 294, 330, 349, 392, 440, 494, 523/*si*/
+};
+
+const int musicScale5[MAX_SCALE_STEP] = 
+{
+    /*do*/392, 294, 330, 349, 392, 440, 494, 523/*si*/
 };
 
 int findBuzzerSysPath(){ //못찾으면 ifNotFound -> 1을 리턴
@@ -106,13 +241,142 @@ int buzzerPlaySong(int scale)
     fp = open(path, O_WRONLY);
     printf("%s\n", path);
     int i = 0;
-    while(i != 10)
+    switch(scale)
     {
-        dprintf(fp, "%d", musicScale[scale - 1 + i++]);
-        sleep(1);
+        case 1:
+        while(i != 8)
+        {
+            
+            dprintf(fp, "%d", musicScale1[i++]);
+            sleep(1);
+        }
+        buzzerEnable(0);
+        break;
+        case 2:
+        while(i != 8)
+        {
+            dprintf(fp, "%d", musicScale2[i++]);
+            sleep(1);
+        }
+        buzzerEnable(0);
+        break;
+        case 3:
+        while(i != 8)
+        {
+            dprintf(fp, "%d", musicScale3[i++]);
+            sleep(1);
+        }
+        buzzerEnable(0);
+        break;
+        case 4:
+        while(i != 8)
+        {
+            dprintf(fp, "%d", musicScale4[i++]);
+            sleep(1);
+        }
+        buzzerEnable(0);
+        break;
+        case 5:
+        while(i != 8)
+        {
+            dprintf(fp, "%d", musicScale5[i++]);
+            sleep(1);
+        }
+        buzzerEnable(0);
+        break;
     }
     
     return 1;
+}
+
+void print_list(int num)
+{
+    ListNode *p;
+    if(num == 1)
+    {
+        if(head1 == NULL)
+        {
+            printf("1번에 저장된 곡이 없습니다.\n"); return;
+        }
+        char path[200];
+        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+        fp = open(path, O_WRONLY);
+
+        for(p = head1->link; p != head1; p = p->link)
+        {
+            dprintf(fp, "%d", p->data);
+            sleep(1);
+        }
+        buzzerEnable(0);
+    }
+    else if(num == 2)
+    {
+        if(head2 == NULL)
+        {
+            printf("2번에 저장된 곡이 없습니다.\n"); return;
+        }
+        char path[200];
+        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+        fp = open(path, O_WRONLY);
+
+        for(p = head2->link; p != head2; p = p->link)
+        {
+            dprintf(fp, "%d", p->data);
+            sleep(1);
+        }
+        buzzerEnable(0);
+    }
+    else if(num == 3)
+    {
+        if(head3 == NULL)
+        {
+            printf("3번에 저장된 곡이 없습니다.\n"); return;
+        }
+        char path[200];
+        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+        fp = open(path, O_WRONLY);
+
+        for(p = head3->link; p != head3; p = p->link)
+        {
+            dprintf(fp, "%d", p->data);
+            sleep(1);
+        }
+        buzzerEnable(0);
+    }
+    else if(num == 4)
+    {
+        if(head4 == NULL)
+        {
+            printf("4번에 저장된 곡이 없습니다.\n"); return;
+        }
+        char path[200];
+        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+        fp = open(path, O_WRONLY);
+
+        for(p = head4->link; p != head4; p = p->link)
+        {
+            dprintf(fp, "%d", p->data);
+            sleep(1);
+        }
+        buzzerEnable(0);
+    }
+    else if(num == 5)
+    {
+        if(head5 == NULL)
+        {
+            printf("5번에 저장된 곡이 없습니다.\n"); return;
+        }
+        char path[200];
+        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+        fp = open(path, O_WRONLY);
+
+        for(p = head5->link; p != head5; p = p->link)
+        {
+            dprintf(fp, "%d", p->data);
+            sleep(1);
+        }
+        buzzerEnable(0);
+    }
 }
 
 int buzzerStopSong(void)
