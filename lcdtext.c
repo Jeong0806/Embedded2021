@@ -50,11 +50,13 @@ typedef struct TextLCD_tag{
 #define CMD_TEST_GPIO_HIGH 0x30
 #define CMD_TEST_GPIO_LOW 0x31
 
+static int fd1 = 0;
+
 int lcdtextwrite(const char *str1, const char *str2)
 {
     unsigned int linenum = 0;
     stTextLCD stlcd;
-    int fd, len;
+    int len;
 
     memset(&stlcd, 0, sizeof(stTextLCD));
     
@@ -87,14 +89,80 @@ int lcdtextwrite(const char *str1, const char *str2)
     }
 
     stlcd.cmd = CMD_WRITE_STRING;
-    fd = open(TEXTLCD_DRIVER_NAME, O_RDWR);
-    if(fd < 0)
+    fd1 = open(TEXTLCD_DRIVER_NAME, O_RDWR);
+    if(fd1 < 0)
     {
         printf("/dev/peritextlcd open error\n");
         return -1;
     }
-    write(fd, &stlcd, sizeof(stTextLCD));
-    close(fd);
+    write(fd1, &stlcd, sizeof(stTextLCD));
+    close(fd1);
     printf("%s\n", stlcd.TextData[linenum -1]);
     return linenum;
+}
+
+int check_open = 0; // 비어있는 곡을 lcd 화면에 출력하고 지워지지 않게 하기 위해  파일을 한 번만 열기 위한 변수.
+stTextLCD stlcd;
+
+void lcd_set(void)
+{
+    memset(&stlcd, 0, sizeof(stTextLCD));
+}
+
+int lcdtextoverwrite(int num, const char *str1, const char *str2) //작곡할 때 몇 번이 비어있는지 알려주기 위해..
+{                                                                 //비어있는 곡이 lcd에서 num칸 만큼 이동하여 표시되게 함.
+    unsigned int linenum = 0;
+    stTextLCD stlcd;
+    int len;
+
+    
+    
+    linenum = strtol(str1, NULL, 10);
+
+    if(linenum == 1)
+    {
+        printf("1th line\n");
+        stlcd.cmdData = CMD_DATA_WRITE_LINE_1;
+    }
+    else if(linenum == 2)
+    {
+        printf("2th line\n");
+        stlcd.cmdData = CMD_DATA_WRITE_LINE_2;
+    }
+    else
+    {
+        printf("plz write 1~2\n");
+        return 1;
+    }
+
+    len = strlen(str2);
+    if(len > COLUMN_NUM)
+    {
+        memcpy(&stlcd.TextData[stlcd.cmdData - 1][num], str2, COLUMN_NUM);
+    }
+    else
+    {
+        memcpy(&stlcd.TextData[stlcd.cmdData - 1][num], str2, len);
+    }
+
+    stlcd.cmd = CMD_WRITE_STRING;
+    if(check_open == 0)
+    {
+        fd1 = open(TEXTLCD_DRIVER_NAME, O_RDWR);
+    }
+    check_open++;
+    if(fd1 < 0)
+    {
+        printf("/dev/peritextlcd open error\n");
+        return -1;
+    }
+    write(fd1, &stlcd, sizeof(stTextLCD));
+    printf("%s\n", stlcd.TextData[linenum -1]);
+    return linenum;
+}
+
+void lcd_close(void) // buzzer.c에서 lcd 파일을 닫기 위해..
+{
+    check_open = 0;
+    close(fd1);
 }

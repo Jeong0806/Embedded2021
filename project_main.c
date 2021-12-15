@@ -62,28 +62,33 @@ int main(void)
                     break;
                     case KEY_BACK:
                     buzzerEnable(1);
-                    buzzerPlaySong(1);
-                    buzzerEnable(0);
+                    //buzzerPlaySong(1);
+                    //buzzerEnable(0);
+                    print_list(1);
                     break;
                     case KEY_SEARCH:
                     buzzerEnable(1);
-                    buzzerPlaySong(2);
-                    buzzerEnable(0);
+                    //buzzerPlaySong(2);
+                    //uzzerEnable(0);
+                    print_list(2);
                     break;
                     case KEY_MENU:
                     buzzerEnable(1);
-                    buzzerPlaySong(3);
-                    buzzerEnable(0);
+                    //buzzerPlaySong(3);
+                    //buzzerEnable(0);
+                    print_list(3);
                     break;
                     case KEY_VOLUMEUP:
                     buzzerEnable(1);
-                    buzzerPlaySong(4);
-                    buzzerEnable(0);
+                    //buzzerPlaySong(4);
+                    //buzzerEnable(0);
+                    print_list(4);
                     break;
                     case KEY_VOLUMEDOWN:
                     buzzerEnable(1);
-                    buzzerPlaySong(5);
-                    buzzerEnable(0);
+                    //buzzerPlaySong(5);
+                    //buzzerEnable(0);
+                    print_list(5);
                     break;
 
                 }
@@ -91,14 +96,18 @@ int main(void)
         }
         else if(home_for_makeSong == 4) // 작곡 모드
         {
+            //delete_song(1); delete_song(2); delete_song(3); delete_song(4); delete_song(5);
             printf("making mode\n");
+            lcdtextwrite("1", "making mode");
+            number_of_song(); // 몇 번이 비어있는지 lcd에 출력
             int home;
             if(messageRxData.pressed)
             {
                 switch(messageRxData.keyInput)
                 {
                     case KEY_HOME:
-                    home_for_makeSong = 0;
+                    home_for_makeSong = 0; //home 키를 누르면 작곡 모드 종료
+                    //lcdtextwrite("1", "playing mode"); // 작곡 모드를 나가면 연주 모드
                     break;
                     case KEY_BACK:
                     home = 0; // while문에서 빠져나오기 위한 변수 -> 1번째 곡의 작곡을 멈추기 위한 것.
@@ -178,12 +187,13 @@ int main(void)
                             }
                         }
                     }
-                    buzzerEnable(1);
-                    print_list(1);
-                    printf("playing 1 finish\n");
+                    //buzzerEnable(1);
+                    //print_list(1);
+                    //printf("playing 1 finish\n");
+                    printf("first song maked\n");
                     break;
                     case KEY_SEARCH:
-                    home = 0; // while문에서 빠져나오기 위한 변수 -> 1번째 곡의 작곡을 멈추기 위한 것.
+                    home = 0; // while문에서 빠져나오기 위한 변수 -> 2번째 곡의 작곡을 멈추기 위한 것.
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -260,12 +270,13 @@ int main(void)
                             }
                         }
                     }
-                    buzzerEnable(1);
-                    print_list(2);
-                    printf("playing 2 finish\n");
+                    //buzzerEnable(1);
+                    //print_list(2);
+                    //printf("playing 2 finish\n");
+                    printf("second song maked\n");
                     break;
                     case KEY_MENU:
-                    home = 0; // while문에서 빠져나오기 위한 변수 -> 1번째 곡의 작곡을 멈추기 위한 것.
+                    home = 0; // while문에서 빠져나오기 위한 변수 -> 3번째 곡의 작곡을 멈추기 위한 것.
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -342,12 +353,13 @@ int main(void)
                             }
                         }
                     }
-                    buzzerEnable(1);
-                    print_list(3);
-                    printf("playing 3 finish\n");
+                    //buzzerEnable(1);
+                    //print_list(3);
+                    //printf("playing 3 finish\n");
+                    printf("third song maked\n");
                     break;
                     case KEY_VOLUMEUP:
-                    home = 0; // while문에서 빠져나오기 위한 변수 -> 1번째 곡의 작곡을 멈추기 위한 것.
+                    home = 0; // while문에서 빠져나오기 위한 변수 -> 4번째 곡의 작곡을 멈추기 위한 것.
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -424,12 +436,13 @@ int main(void)
                             }
                         }
                     }
-                    buzzerEnable(1);
-                    print_list(4);
-                    printf("playing 4 finish\n");
+                    //buzzerEnable(1);
+                    //print_list(4);
+                    //printf("playing 4 finish\n");
+                    printf("forth song maked\n");
                     break;
                     case KEY_VOLUMEDOWN:
-                    home = 0; // while문에서 빠져나오기 위한 변수 -> 1번째 곡의 작곡을 멈추기 위한 것.
+                    home = 0; // while문에서 빠져나오기 위한 변수 -> 5번째 곡의 작곡을 멈추기 위한 것.
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -506,15 +519,16 @@ int main(void)
                             }
                         }
                     }
-                    buzzerEnable(1);
-                    print_list(5);
-                    printf("playing 5 finish\n");
+                    //buzzerEnable(1);
+                    //print_list(5);
+                    //printf("playing 5 finish\n");
+                    printf("fifth song maked\n");
                     break;
                 }
             }
             if(home_for_makeSong == 0)
             {
-                printf("get out\n");
+                printf("Exit making mode\n");
             }
         }
         else

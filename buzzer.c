@@ -11,6 +11,7 @@
 #include "button.h"
 #include "led.h"
 #include "buzzer.h"
+#include "lcdtext.h"
 
 #define MAX_SCALE_STEP 8
 #define BUZZER_BASE_SYS_PATH "/sys/bus/platform/devices"
@@ -296,87 +297,139 @@ void print_list(int num)
     {
         if(head1 == NULL)
         {
-            printf("1번에 저장된 곡이 없습니다.\n"); return;
+            printf("1번에 저장된 곡이 없습니다.\n");
         }
-        char path[200];
-        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
-        fp = open(path, O_WRONLY);
-
-        for(p = head1->link; p != head1; p = p->link)
+        else
         {
-            dprintf(fp, "%d", p->data);
-            sleep(1);
+            char path[200];
+            sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+            fp = open(path, O_WRONLY);
+
+            for(p = head1->link; p != head1; p = p->link)
+            {
+                dprintf(fp, "%d", p->data);
+                sleep(1);
+            }
+            buzzerEnable(0);
         }
-        buzzerEnable(0);
     }
     else if(num == 2)
     {
         if(head2 == NULL)
         {
-            printf("2번에 저장된 곡이 없습니다.\n"); return;
+            printf("2번에 저장된 곡이 없습니다.\n");
         }
-        char path[200];
-        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
-        fp = open(path, O_WRONLY);
-
-        for(p = head2->link; p != head2; p = p->link)
+        else
         {
-            dprintf(fp, "%d", p->data);
-            sleep(1);
+            char path[200];
+            sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+            fp = open(path, O_WRONLY);
+
+            for(p = head2->link; p != head2; p = p->link)
+            {
+                dprintf(fp, "%d", p->data);
+                sleep(1);
+            }
+            buzzerEnable(0);
         }
-        buzzerEnable(0);
     }
     else if(num == 3)
     {
         if(head3 == NULL)
         {
-            printf("3번에 저장된 곡이 없습니다.\n"); return;
+            printf("3번에 저장된 곡이 없습니다.\n");
         }
-        char path[200];
-        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
-        fp = open(path, O_WRONLY);
-
-        for(p = head3->link; p != head3; p = p->link)
+        else
         {
-            dprintf(fp, "%d", p->data);
-            sleep(1);
+            char path[200];
+            sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+            fp = open(path, O_WRONLY);
+
+            for(p = head3->link; p != head3; p = p->link)
+            {
+                dprintf(fp, "%d", p->data);
+                sleep(1);
+            }
+            buzzerEnable(0);
         }
-        buzzerEnable(0);
     }
     else if(num == 4)
     {
         if(head4 == NULL)
         {
-            printf("4번에 저장된 곡이 없습니다.\n"); return;
+            printf("4번에 저장된 곡이 없습니다.\n");
         }
-        char path[200];
-        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
-        fp = open(path, O_WRONLY);
-
-        for(p = head4->link; p != head4; p = p->link)
+        else
         {
-            dprintf(fp, "%d", p->data);
-            sleep(1);
+            char path[200];
+            sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+            fp = open(path, O_WRONLY);
+
+            for(p = head4->link; p != head4; p = p->link)
+            {
+                dprintf(fp, "%d", p->data);
+                sleep(1);
+            }
+            buzzerEnable(0);
         }
-        buzzerEnable(0);
     }
     else if(num == 5)
     {
         if(head5 == NULL)
         {
-            printf("5번에 저장된 곡이 없습니다.\n"); return;
+            printf("5번에 저장된 곡이 없습니다.\n");
         }
-        char path[200];
-        sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
-        fp = open(path, O_WRONLY);
-
-        for(p = head5->link; p != head5; p = p->link)
+        else
         {
-            dprintf(fp, "%d", p->data);
-            sleep(1);
+            char path[200];
+            sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
+            fp = open(path, O_WRONLY);
+
+            for(p = head5->link; p != head5; p = p->link)
+            {
+                dprintf(fp, "%d", p->data);
+                sleep(1);
+            }
+            buzzerEnable(0);
         }
-        buzzerEnable(0);
     }
+    buzzerEnable(0);
+}
+
+int number_of_song(void)
+{
+    lcd_set();
+    lcdtextoverwrite(0, "2", "empty:         "); // 15칸 띄운 이유 -> 이렇게 하지 않으면 \0 에 의해 문장이 끝났다고 판단되어 lcd에 출력이 안됨
+    int num = 0;
+    if(head1 == NULL)
+    {
+        lcdtextoverwrite(7, "2", "1");
+    }
+
+    if(head2 == NULL)
+    {
+        lcdtextoverwrite(9, "2", "2");
+    }
+
+    if(head3 == NULL)
+    {
+        lcdtextoverwrite(11, "2", "3");
+    }
+
+    if(head4 == NULL)
+    {
+        lcdtextoverwrite(13, "2", "4");
+    }
+
+    if(head5 == NULL)
+    {
+        lcdtextoverwrite(15, "2", "5");
+    }
+
+
+    lcd_close();
+
+    return num;
 }
 
 int buzzerStopSong(void)
@@ -386,7 +439,29 @@ int buzzerStopSong(void)
     return 1;
 }
 
-
+void delete_song(int num)
+{
+    if(num == 1)
+    {
+        head1 = NULL;
+    }
+    else if(num == 2)
+    {
+        head2 = NULL;
+    }
+    else if(num == 3)
+    {
+        head3 = NULL;
+    }
+    else if(num == 4)
+    {
+        head4 = NULL;
+    }
+    else if(num == 5)
+    {
+        head5 = NULL;
+    }
+}
 
 int buzzerExit(void)
 {
