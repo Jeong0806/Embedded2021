@@ -617,7 +617,7 @@ int main(void)
                     {
                         setFrequency(mi * 2);
                     }
-                    sleep(1);
+                    sleep(0.5);
                     buzzerEnable(0);
                     break;
                     case KEY_HOME:
@@ -638,7 +638,7 @@ int main(void)
                     {
                         setFrequency(doo * 2);
                     }
-                    sleep(1);
+                    sleep(0.5);
                     buzzerEnable(0);
                     break;
                     case KEY_BACK:
@@ -659,7 +659,7 @@ int main(void)
                     {
                         setFrequency(re * 2);
                     }
-                    sleep(1);
+                    sleep(0.5);
                     buzzerEnable(0);
                     break;
                     case KEY_VOLUMEDOWN:
@@ -681,7 +681,7 @@ int main(void)
                         {
                             setFrequency(pa * 2);
                         }
-                        sleep(1);
+                        sleep(0.5);
                         buzzerEnable(0);
                         break;
                     }

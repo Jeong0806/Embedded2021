@@ -308,7 +308,7 @@ void print_list(int num)
             for(p = head1->link; p != head1; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(1);
+                sleep(0.5);
             }
             buzzerEnable(0);
         }
@@ -328,7 +328,7 @@ void print_list(int num)
             for(p = head2->link; p != head2; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(1);
+                sleep(0.5);
             }
             buzzerEnable(0);
         }
@@ -348,7 +348,7 @@ void print_list(int num)
             for(p = head3->link; p != head3; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(1);
+                sleep(0.5);
             }
             buzzerEnable(0);
         }
@@ -368,7 +368,7 @@ void print_list(int num)
             for(p = head4->link; p != head4; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(1);
+                sleep(0.5);
             }
             buzzerEnable(0);
         }
@@ -388,7 +388,7 @@ void print_list(int num)
             for(p = head5->link; p != head5; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(1);
+                sleep(0.5);
             }
             buzzerEnable(0);
         }
