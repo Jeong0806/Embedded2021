@@ -43,6 +43,58 @@ int main(void)
     buzzerEnable(0);
     while(1)
     {
+        if(back_for_PlaySong == 4) // delte mode로 진입 -> 저장된 곡 삭제
+        {
+            while(1)
+            {
+                msgrcv(Msgid, &messageRxData, sizeof(int) * 2, 0, 0);
+                lcdtextwrite("1", "delete mode");
+                list_number_of_song();
+                if(messageRxData.pressed)
+                {
+                    switch(messageRxData.keyInput)
+                    {
+                        case KEY_HOME:
+                        home_for_makeSong = 0;
+                        back_for_PlaySong = 0; // delete mode 에서 빠져나오기 위해..
+                        lcdtextwrite("1", "Playing mode");
+                        break;
+                        case KEY_BACK:
+                        delete_song(1); // 1번 곡 삭제
+                        lcdtextwrite("1", "1th song deleted");
+                        sleep(1);
+                        break;
+                        case KEY_SEARCH:
+                        delete_song(2); // 2번 곡 삭제
+                        lcdtextwrite("1", "2th song deleted");
+                        sleep(1);
+                        break;
+                        case KEY_MENU:
+                        delete_song(3); // 3번 곡 삭제
+                        lcdtextwrite("1", "3th song deleted");
+                        sleep(1);
+                        break;
+                        case KEY_VOLUMEUP:
+                        delete_song(4); // 4번 곡 삭제
+                        lcdtextwrite("1", "4th song deleted");
+                        sleep(1);
+                        break;
+                        case KEY_VOLUMEDOWN:
+                        delete_song(5); // 5번 곡 삭제
+                        lcdtextwrite("1", "5th song deleted");
+                        sleep(1);
+                        break;
+                    }
+                    
+                }
+
+                if(back_for_PlaySong == 0)
+                {
+                    break;
+                }
+            }
+        }
+        
         int doo = 262; int re = 294; int mi = 330; int pa = 349;
         if((change_scale % 2) == 1) // back를 통해 각 버튼에 해당하는 음을 바꿈
         {
@@ -617,7 +669,7 @@ int main(void)
                     {
                         setFrequency(mi * 2);
                     }
-                    sleep(0.5);
+                    sleep(1);
                     buzzerEnable(0);
                     break;
                     case KEY_HOME:
@@ -638,7 +690,7 @@ int main(void)
                     {
                         setFrequency(doo * 2);
                     }
-                    sleep(0.5);
+                    sleep(1);
                     buzzerEnable(0);
                     break;
                     case KEY_BACK:
@@ -659,7 +711,7 @@ int main(void)
                     {
                         setFrequency(re * 2);
                     }
-                    sleep(0.5);
+                    sleep(1);
                     buzzerEnable(0);
                     break;
                     case KEY_VOLUMEDOWN:
@@ -681,7 +733,7 @@ int main(void)
                         {
                             setFrequency(pa * 2);
                         }
-                        sleep(0.5);
+                        sleep(1);
                         buzzerEnable(0);
                         break;
                     }

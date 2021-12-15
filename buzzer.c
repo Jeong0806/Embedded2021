@@ -136,32 +136,6 @@ ListNode *insert_last5(element data)
     return head5;
 }
 
-
-const int musicScale1[MAX_SCALE_STEP] = 
-{
-    /*do*/262, 294, 330, 349, 392, 440, 494, 523/*si*/
-};
-
-const int musicScale2[MAX_SCALE_STEP] = 
-{
-    /*do*/523, 294, 330, 349, 392, 440, 494, 523/*si*/
-};
-
-const int musicScale3[MAX_SCALE_STEP] = 
-{
-    /*do*/494, 294, 330, 349, 392, 440, 494, 523/*si*/
-};
-
-const int musicScale4[MAX_SCALE_STEP] = 
-{
-    /*do*/440, 294, 330, 349, 392, 440, 494, 523/*si*/
-};
-
-const int musicScale5[MAX_SCALE_STEP] = 
-{
-    /*do*/392, 294, 330, 349, 392, 440, 494, 523/*si*/
-};
-
 int findBuzzerSysPath(){ //못찾으면 ifNotFound -> 1을 리턴
     DIR *dir_info = opendir(BUZZER_BASE_SYS_PATH);
     int ifNotFound = 1;
@@ -234,7 +208,7 @@ int buzzerInit(void)
     buzzerEnable(1);
     return 1;
 }
-
+/*
 int buzzerPlaySong(int scale)
 {
     char path[200];
@@ -289,6 +263,7 @@ int buzzerPlaySong(int scale)
     
     return 1;
 }
+*/
 
 void print_list(int num)
 {
@@ -308,7 +283,7 @@ void print_list(int num)
             for(p = head1->link; p != head1; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(0.5);
+                sleep(1);
             }
             buzzerEnable(0);
         }
@@ -328,7 +303,7 @@ void print_list(int num)
             for(p = head2->link; p != head2; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(0.5);
+                sleep(1);
             }
             buzzerEnable(0);
         }
@@ -348,7 +323,7 @@ void print_list(int num)
             for(p = head3->link; p != head3; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(0.5);
+                sleep(1);
             }
             buzzerEnable(0);
         }
@@ -368,7 +343,7 @@ void print_list(int num)
             for(p = head4->link; p != head4; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(0.5);
+                sleep(1);
             }
             buzzerEnable(0);
         }
@@ -388,7 +363,7 @@ void print_list(int num)
             for(p = head5->link; p != head5; p = p->link)
             {
                 dprintf(fp, "%d", p->data);
-                sleep(0.5);
+                sleep(1);
             }
             buzzerEnable(0);
         }
