@@ -396,7 +396,7 @@ void print_list(int num)
     buzzerEnable(0);
 }
 
-int number_of_song(void)
+int empty_number_of_song(void)
 {
     lcd_set();
     lcdtextoverwrite(0, "2", "empty:         "); // 15칸 띄운 이유 -> 이렇게 하지 않으면 \0 에 의해 문장이 끝났다고 판단되어 lcd에 출력이 안됨
@@ -426,6 +426,48 @@ int number_of_song(void)
         lcdtextoverwrite(15, "2", "5");
     }
 
+
+    lcd_close();
+
+    return num;
+}
+
+int list_number_of_song(void)
+{
+    lcd_set();
+    lcdtextoverwrite(0, "2", "list:          "); // 15칸 띄운 이유 -> 이렇게 하지 않으면 \0 에 의해 문장이 끝났다고 판단되어 lcd에 출력이 안됨
+    int num = 0;
+    if(head1 != NULL)
+    {
+        lcdtextoverwrite(7, "2", "1");
+        num++;
+    }
+
+    if(head2 != NULL)
+    {
+        lcdtextoverwrite(9, "2", "2");
+        num++;
+    }
+
+    if(head3 != NULL)
+    {
+        lcdtextoverwrite(11, "2", "3");
+        num++;
+    }
+
+    if(head4 != NULL)
+    {
+        lcdtextoverwrite(13, "2", "4");
+        num++;
+    }
+
+    if(head5 != NULL)
+    {
+        lcdtextoverwrite(15, "2", "5");
+        num++;
+    }
+
+    //num 만큼 fnd에 띄우기.
 
     lcd_close();
 
