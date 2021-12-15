@@ -43,6 +43,27 @@ int main(void)
     buzzerEnable(0);
     while(1)
     {
+        int doo = 262; int re = 294; int mi = 330; int pa = 349;
+        if((change_scale % 2) == 1) // back를 통해 각 버튼에 해당하는 음을 바꿈
+        {
+            //doo를 sol로 바꿈, re를 ra로 바꿈, mi를 si로 바꿈, pa를 소리 안나게 바꿈
+            doo = 392; re = 440; mi = 493; pa = 0;
+            ledOnOff(1, 1); // '솔라시'인지 '도레미파'인지 구분하기 편하게 하기 위해 led on -> 솔라시
+        }
+        else
+        {
+            ledOnOff(1, 0); // '솔라시'인지 '도레미파'인지 구분하기 편하게 하기 위해 led off -> 도레미파
+        }
+
+        if((change_octave % 2) == 1)
+        {
+            ledOnOff(0, 1); // 한단계 위 옥타브
+        }
+        else
+        {
+            ledOnOff(0, 0); // 기본 옥타브
+        }
+
         if(back_for_PlaySong == 4) // delte mode로 진입 -> 저장된 곡 삭제
         {
             while(1)
@@ -93,27 +114,6 @@ int main(void)
                     break;
                 }
             }
-        }
-        
-        int doo = 262; int re = 294; int mi = 330; int pa = 349;
-        if((change_scale % 2) == 1) // back를 통해 각 버튼에 해당하는 음을 바꿈
-        {
-            //doo를 sol로 바꿈, re를 ra로 바꿈, mi를 si로 바꿈, pa를 소리 안나게 바꿈
-            doo = 392; re = 440; mi = 493; pa = 0;
-            ledOnOff(1, 1); // '솔라시'인지 '도레미파'인지 구분하기 편하게 하기 위해 led on -> 솔라시
-        }
-        else
-        {
-            ledOnOff(1, 0); // '솔라시'인지 '도레미파'인지 구분하기 편하게 하기 위해 led off -> 도레미파
-        }
-
-        if((change_octave % 2) == 1)
-        {
-            ledOnOff(0, 1); // 한단계 위 옥타브
-        }
-        else
-        {
-            ledOnOff(0, 0); // 기본 옥타브
         }
 
         int return_value = 0;
@@ -749,6 +749,7 @@ int main(void)
     buzzerStopSong();
     buttonExit();
     ledLibExit();
+    lcd_close();
     
 
     return 0;
