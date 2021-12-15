@@ -24,6 +24,7 @@
 
 int main(void)
 {
+    ledLibinit();
     int change_octave = 0; // Home키를 눌렀을 때 octave 변경
     int change_scale = 0; // back키를 눌렀을 때 음 변경 -> 버튼 수가 7개보다 적어 파트를 나눔
     int home_for_makeSong = 0; //작곡 모드인지 판단하기 위한 변수
@@ -47,6 +48,20 @@ int main(void)
         {
             //doo를 sol로 바꿈, re를 ra로 바꿈, mi를 si로 바꿈, pa를 소리 안나게 바꿈
             doo = 392; re = 440; mi = 493; pa = 0;
+            ledOnOff(1, 1); // '솔라시'인지 '도레미파'인지 구분하기 편하게 하기 위해 led on -> 솔라시
+        }
+        else
+        {
+            ledOnOff(1, 0); // '솔라시'인지 '도레미파'인지 구분하기 편하게 하기 위해 led off -> 도레미파
+        }
+
+        if((change_octave % 2) == 1)
+        {
+            ledOnOff(0, 1); // 한단계 위 옥타브
+        }
+        else
+        {
+            ledOnOff(0, 0); // 기본 옥타브
         }
 
         int return_value = 0;
@@ -116,6 +131,19 @@ int main(void)
                         {
                             //doo를 sol로 바꿈, re를 ra로 바꿈, mi를 si로 바꿈, pa를 소리 안나게 바꿈
                             doo = 392; re = 440; mi = 493; pa = 0;
+                            ledOnOff(1, 1);
+                        }
+                        else
+                        {
+                            ledOnOff(1, 0);
+                        }
+                        if((change_octave % 2) == 1)
+                        {
+                            ledOnOff(0, 1); // 한단계 위 옥타브
+                        }
+                        else
+                        {
+                            ledOnOff(0, 0); // 기본 옥타브
                         }
                         if(home == 2) // 다른 키 안누르고 홈 키를 두 번 연속 누르면 종료되도록..
                         {
@@ -197,6 +225,18 @@ int main(void)
                         {
                             //doo를 sol로 바꿈, re를 ra로 바꿈, mi를 si로 바꿈, pa를 소리 안나게 바꿈
                             doo = 392; re = 440; mi = 493; pa = 0;
+                            ledOnOff(1,1);
+                        }
+                        else{
+                            ledOnOff(1, 0);
+                        }
+                        if((change_octave % 2) == 1)
+                        {
+                            ledOnOff(0, 1); // 한단계 위 옥타브
+                        }
+                        else
+                        {
+                            ledOnOff(0, 0); // 기본 옥타브
                         }
                         if(home == 2) // 다른 키 안누르고 홈 키를 두 번 연속 누르면 종료되도록..
                         {
@@ -278,6 +318,19 @@ int main(void)
                         {
                             //doo를 sol로 바꿈, re를 ra로 바꿈, mi를 si로 바꿈, pa를 소리 안나게 바꿈
                             doo = 392; re = 440; mi = 493; pa = 0;
+                            ledOnOff(1, 1);
+                        }
+                        else
+                        {
+                            ledOnOff(1,0);
+                        }
+                        if((change_octave % 2) == 1)
+                        {
+                            ledOnOff(0, 1); // 한단계 위 옥타브
+                        }
+                        else
+                        {
+                            ledOnOff(0, 0); // 기본 옥타브
                         }
                         if(home == 2) // 다른 키 안누르고 홈 키를 두 번 연속 누르면 종료되도록..
                         {
@@ -359,6 +412,19 @@ int main(void)
                         {
                             //doo를 sol로 바꿈, re를 ra로 바꿈, mi를 si로 바꿈, pa를 소리 안나게 바꿈
                             doo = 392; re = 440; mi = 493; pa = 0;
+                            ledOnOff(1,1);
+                        }
+                        else
+                        {
+                            ledOnOff(1, 0);
+                        }
+                        if((change_octave % 2) == 1)
+                        {
+                            ledOnOff(0, 1); // 한단계 위 옥타브
+                        }
+                        else
+                        {
+                            ledOnOff(0, 0); // 기본 옥타브
                         }
                         if(home == 2) // 다른 키 안누르고 홈 키를 두 번 연속 누르면 종료되도록..
                         {
@@ -440,6 +506,19 @@ int main(void)
                         {
                             //doo를 sol로 바꿈, re를 ra로 바꿈, mi를 si로 바꿈, pa를 소리 안나게 바꿈
                             doo = 392; re = 440; mi = 493; pa = 0;
+                            ledOnOff(1,1);
+                        }
+                        else
+                        {
+                            ledOnOff(1, 0);
+                        }
+                        if((change_octave % 2) == 1)
+                        {
+                            ledOnOff(0, 1); // 한단계 위 옥타브
+                        }
+                        else
+                        {
+                            ledOnOff(0, 0); // 기본 옥타브
                         }
                         if(home == 2) // 다른 키 안누르고 홈 키를 두 번 연속 누르면 종료되도록..
                         {
@@ -617,6 +696,7 @@ int main(void)
 
     buzzerStopSong();
     buttonExit();
+    ledLibExit();
     
 
     return 0;
