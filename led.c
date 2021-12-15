@@ -42,7 +42,11 @@ int ledStatus(void)
 int ledLibExit(void)
 //이 함수는 led를 전부 끄고 driver를 close한다.
 {
-    ledOnOff(0,0);
+    for(int i = 0; i <= 7; i++)
+    {
+        ledOnOff(i, 0);
+    }
+    
     close(fd);
 }
 int ledLibRaw(char led_status)

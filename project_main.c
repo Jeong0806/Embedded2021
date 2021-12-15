@@ -24,7 +24,7 @@
 
 int main(void)
 {
-    ledLibinit();
+    
     int change_octave = 0; // Home키를 눌렀을 때 octave 변경
     int change_scale = 0; // back키를 눌렀을 때 음 변경 -> 버튼 수가 7개보다 적어 파트를 나눔
     int home_for_makeSong = 0; //작곡 모드인지 판단하기 위한 변수
@@ -38,6 +38,7 @@ int main(void)
         if(return_value == -1) break;
     }
 
+    ledLibinit();
     buttonInit();
     buzzerInit();
     buzzerEnable(0);
@@ -744,13 +745,19 @@ int main(void)
                 printf("release\r\n");
             }
         }
+
+        if(home_for_makeSong == 2 && back_for_PlaySong == 2) //프로그램 종료
+        {
+            break;
+        }
     }
 
-    buzzerStopSong();
-    buttonExit();
+    lcdtextwrite("1", "The End");
+    sleep(3);
+    lcd_exit();
     ledLibExit();
-    lcd_close();
-    
+    buzzerExit();
+    buttonExit();
 
     return 0;
 }

@@ -482,6 +482,8 @@ void delete_song(int num)
 
 int buzzerExit(void)
 {
+    lcd_close();
     buzzerEnable(0);
+    close(fp);
     return 1;
 }

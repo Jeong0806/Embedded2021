@@ -137,6 +137,6 @@ int buttonInit(void)
 
 int buttonExit(void)
 {
-    pthread_join(buttonTh_id, NULL);
+    //pthread_join(buttonTh_id, NULL);
     close(fd);
 }

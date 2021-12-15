@@ -166,3 +166,10 @@ void lcd_close(void) // buzzer.c에서 lcd 파일을 닫기 위해..
     check_open = 0;
     close(fd1);
 }
+
+void lcd_exit(void)
+{
+    lcdtextwrite("1", " ");
+    lcdtextwrite("2", " ");
+    close(fd1);
+}
