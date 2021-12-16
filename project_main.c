@@ -142,6 +142,7 @@ int main(void)
                 {
                     case KEY_HOME: // home키 누르면 저장된 곡 재생 모드에서 빠져나감
                     home_for_makeSong = 0; back_for_PlaySong = 0;
+                    lcdtextwrite("1", "playing mode");
                     break;
                     case KEY_BACK:
                     buzzerEnable(1);
@@ -177,7 +178,7 @@ int main(void)
                     }
                     else if(pid == 0)
                     {
-                        count = fnd_play1_time;
+                        count = fnd_play2_time;
                         while(1)
                         {
                             if(count == 0) break;
@@ -200,7 +201,7 @@ int main(void)
                     }
                     else if(pid == 0)
                     {
-                        count = fnd_play1_time;
+                        count = fnd_play3_time;
                         while(1)
                         {
                             if(count == 0) break;
@@ -223,7 +224,7 @@ int main(void)
                     }
                     else if(pid == 0)
                     {
-                        count = fnd_play1_time;
+                        count = fnd_play4_time;
                         while(1)
                         {
                             if(count == 0) break;
@@ -246,7 +247,7 @@ int main(void)
                     }
                     else if(pid == 0)
                     {
-                        count = fnd_play1_time;
+                        count = fnd_play5_time;
                         while(1)
                         {
                             if(count == 0) break;
