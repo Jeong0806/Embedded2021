@@ -24,11 +24,19 @@
 
 int main(void)
 {
-    
     int change_octave = 0; // Home키를 눌렀을 때 octave 변경
     int change_scale = 0; // back키를 눌렀을 때 음 변경 -> 버튼 수가 7개보다 적어 파트를 나눔
     int home_for_makeSong = 0; //작곡 모드인지 판단하기 위한 변수
     int back_for_PlaySong = 0; // 저장한 곡을 재생하는 모드인지 판단하기 위한 변수
+    int fnd_play1_time = 0; // 해당 곡의 재생시간을 fnd에 표시하기 위한 변수.
+    int fnd_play2_time = 0;
+    int fnd_play3_time = 0;
+    int fnd_play4_time = 0;
+    int fnd_play5_time = 0;
+    int count; // 재생시간을 카운트 다운할 변수
+    pid_t pid; //곡 재생과 카운트 다운을 같이 하기 위해..
+    int status;
+
     BUTTON_MSG_T messageRxData;
     int Msgid = msgget(MESSAGE_ID, IPC_CREAT|0666);
     while(1)
@@ -65,7 +73,7 @@ int main(void)
             ledOnOff(0, 0); // 기본 옥타브
         }
 
-        if(back_for_PlaySong == 4) // delte mode로 진입 -> 저장된 곡 삭제
+        if(back_for_PlaySong == 4) // delete mode로 진입 -> 저장된 곡 삭제
         {
             while(1)
             {
@@ -84,26 +92,31 @@ int main(void)
                         case KEY_BACK:
                         delete_song(1); // 1번 곡 삭제
                         lcdtextwrite("1", "1th song deleted");
+                        fnd_play1_time = 0;
                         sleep(1);
                         break;
                         case KEY_SEARCH:
                         delete_song(2); // 2번 곡 삭제
                         lcdtextwrite("1", "2th song deleted");
+                        fnd_play2_time = 0;
                         sleep(1);
                         break;
                         case KEY_MENU:
                         delete_song(3); // 3번 곡 삭제
                         lcdtextwrite("1", "3th song deleted");
+                        fnd_play3_time = 0;
                         sleep(1);
                         break;
                         case KEY_VOLUMEUP:
                         delete_song(4); // 4번 곡 삭제
                         lcdtextwrite("1", "4th song deleted");
+                        fnd_play4_time = 0;
                         sleep(1);
                         break;
                         case KEY_VOLUMEDOWN:
                         delete_song(5); // 5번 곡 삭제
                         lcdtextwrite("1", "5th song deleted");
+                        fnd_play5_time = 0;
                         sleep(1);
                         break;
                     }
@@ -133,27 +146,117 @@ int main(void)
                     case KEY_BACK:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 1");
-                    print_list(1); // 저장된 곡 재생
+                    pid = fork();
+                    if(pid > 0)
+                    {
+                        print_list(1); // 저장된 곡 재생
+                        wait(&status);
+                    }
+                    else if(pid == 0)
+                    {
+                        count = fnd_play1_time;
+                        while(1)
+                        {
+                            if(count == 0) break;
+                            fndDisp(count, 0);
+                            count--;
+                            sleep(1);
+                        }
+                        fndDisp(count, 0);
+                        exit(1234);
+                    }
                     break;
                     case KEY_SEARCH:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 2");
-                    print_list(2);
+                    pid = fork();
+                    if(pid > 0)
+                    {
+                        print_list(2); // 저장된 곡 재생
+                        wait(&status);
+                    }
+                    else if(pid == 0)
+                    {
+                        count = fnd_play1_time;
+                        while(1)
+                        {
+                            if(count == 0) break;
+                            fndDisp(count, 0);
+                            count--;
+                            sleep(1);
+                        }
+                        fndDisp(count, 0);
+                        exit(1234);
+                    }
                     break;
                     case KEY_MENU:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 3");
-                    print_list(3);
+                    pid = fork();
+                    if(pid > 0)
+                    {
+                        print_list(3); // 저장된 곡 재생
+                        wait(&status);
+                    }
+                    else if(pid == 0)
+                    {
+                        count = fnd_play1_time;
+                        while(1)
+                        {
+                            if(count == 0) break;
+                            fndDisp(count, 0);
+                            count--;
+                            sleep(1);
+                        }
+                        fndDisp(count, 0);
+                        exit(1234);
+                    }
                     break;
                     case KEY_VOLUMEUP:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 4");
-                    print_list(4);
+                    pid = fork();
+                    if(pid > 0)
+                    {
+                        print_list(4); // 저장된 곡 재생
+                        wait(&status);
+                    }
+                    else if(pid == 0)
+                    {
+                        count = fnd_play1_time;
+                        while(1)
+                        {
+                            if(count == 0) break;
+                            fndDisp(count, 0);
+                            count--;
+                            sleep(1);
+                        }
+                        fndDisp(count, 0);
+                        exit(1234);
+                    }
                     break;
                     case KEY_VOLUMEDOWN:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 5");
-                    print_list(5);
+                    pid = fork();
+                    if(pid > 0)
+                    {
+                        print_list(5); // 저장된 곡 재생
+                        wait(&status);
+                    }
+                    else if(pid == 0)
+                    {
+                        count = fnd_play1_time;
+                        while(1)
+                        {
+                            if(count == 0) break;
+                            fndDisp(count, 0);
+                            count--;
+                            sleep(1);
+                        }
+                        fndDisp(count, 0);
+                        exit(1234);
+                    }
                     break;
 
                 }
@@ -219,33 +322,33 @@ int main(void)
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last1(doo);
+                                    insert_last1(doo); fnd_play1_time++;
                                 }
                                 else
                                 {
-                                    insert_last1(doo * 2);
+                                    insert_last1(doo * 2); fnd_play1_time++;
                                 }
                                 break;
                                 case KEY_MENU:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last1(re);
+                                    insert_last1(re); fnd_play1_time++;
                                 }
                                 else
                                 {
-                                    insert_last1(re * 2);
+                                    insert_last1(re * 2); fnd_play1_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEUP:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last1(mi);
+                                    insert_last1(mi); fnd_play1_time++;
                                 }
                                 else
                                 {
-                                    insert_last1(mi * 2);
+                                    insert_last1(mi * 2); fnd_play1_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEDOWN:
@@ -254,11 +357,11 @@ int main(void)
                                 {
                                     if((change_octave % 2) == 0)
                                     {
-                                        insert_last1(pa);
+                                        insert_last1(pa); fnd_play1_time++;
                                     }
                                     else
                                     {
-                                        insert_last1(pa * 2);
+                                        insert_last1(pa * 2); fnd_play1_time++;
                                     }
                                 }
                             
@@ -312,33 +415,33 @@ int main(void)
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last2(doo);
+                                    insert_last2(doo); fnd_play2_time++;
                                 }
                                 else
                                 {
-                                    insert_last2(doo * 2);
+                                    insert_last2(doo * 2); fnd_play2_time++;
                                 }
                                 break;
                                 case KEY_MENU:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last2(re);
+                                    insert_last2(re); fnd_play2_time++;
                                 }
                                 else
                                 {
-                                    insert_last2(re * 2);
+                                    insert_last2(re * 2); fnd_play2_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEUP:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last2(mi);
+                                    insert_last2(mi); fnd_play2_time++;
                                 }
                                 else
                                 {
-                                    insert_last2(mi * 2);
+                                    insert_last2(mi * 2); fnd_play2_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEDOWN:
@@ -347,11 +450,11 @@ int main(void)
                                 {
                                     if((change_octave % 2) == 0)
                                     {
-                                        insert_last2(pa);
+                                        insert_last2(pa); fnd_play2_time++;
                                     }
                                     else
                                     {
-                                        insert_last2(pa * 2);
+                                        insert_last2(pa * 2); fnd_play2_time++;
                                     }
                                 }
                             
@@ -406,33 +509,33 @@ int main(void)
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last3(doo);
+                                    insert_last3(doo); fnd_play3_time++;
                                 }
                                 else
                                 {
-                                    insert_last3(doo * 2);
+                                    insert_last3(doo * 2); fnd_play3_time++;
                                 }
                                 break;
                                 case KEY_MENU:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last3(re);
+                                    insert_last3(re); fnd_play3_time++;
                                 }
                                 else
                                 {
-                                    insert_last3(re * 2);
+                                    insert_last3(re * 2); fnd_play3_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEUP:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last3(mi);
+                                    insert_last3(mi); fnd_play3_time++;
                                 }
                                 else
                                 {
-                                    insert_last3(mi * 2);
+                                    insert_last3(mi * 2); fnd_play3_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEDOWN:
@@ -441,11 +544,11 @@ int main(void)
                                 {
                                     if((change_octave % 2) == 0)
                                     {
-                                        insert_last3(pa);
+                                        insert_last3(pa); fnd_play3_time++;
                                     }
                                     else
                                     {
-                                        insert_last3(pa * 2);
+                                        insert_last3(pa * 2); fnd_play3_time++;
                                     }
                                 }
                             
@@ -500,33 +603,33 @@ int main(void)
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last4(doo);
+                                    insert_last4(doo); fnd_play4_time++;
                                 }
                                 else
                                 {
-                                    insert_last4(doo * 2);
+                                    insert_last4(doo * 2); fnd_play4_time++;
                                 }
                                 break;
                                 case KEY_MENU:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last4(re);
+                                    insert_last4(re); fnd_play4_time++;
                                 }
                                 else
                                 {
-                                    insert_last4(re * 2);
+                                    insert_last4(re * 2); fnd_play4_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEUP:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last4(mi);
+                                    insert_last4(mi); fnd_play4_time++;
                                 }
                                 else
                                 {
-                                    insert_last4(mi * 2);
+                                    insert_last4(mi * 2); fnd_play4_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEDOWN:
@@ -535,11 +638,11 @@ int main(void)
                                 {
                                     if((change_octave % 2) == 0)
                                     {
-                                        insert_last4(pa);
+                                        insert_last4(pa); fnd_play4_time++;
                                     }
                                     else
                                     {
-                                        insert_last4(pa * 2);
+                                        insert_last4(pa * 2); fnd_play4_time++;
                                     }
                                 }
                             
@@ -594,33 +697,33 @@ int main(void)
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last5(doo);
+                                    insert_last5(doo); fnd_play5_time++;
                                 }
                                 else
                                 {
-                                    insert_last5(doo * 2);
+                                    insert_last5(doo * 2); fnd_play5_time++;
                                 }
                                 break;
                                 case KEY_MENU:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last5(re);
+                                    insert_last5(re); fnd_play5_time++;
                                 }
                                 else
                                 {
-                                    insert_last5(re * 2);
+                                    insert_last5(re * 2); fnd_play5_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEUP:
                                 home = 0;
                                 if((change_octave % 2) == 0)
                                 {
-                                    insert_last5(mi);
+                                    insert_last5(mi); fnd_play5_time++;
                                 }
                                 else
                                 {
-                                    insert_last5(mi * 2);
+                                    insert_last5(mi * 2); fnd_play5_time++;
                                 }
                                 break;
                                 case KEY_VOLUMEDOWN:
@@ -629,11 +732,11 @@ int main(void)
                                 {
                                     if((change_octave % 2) == 0)
                                     {
-                                        insert_last5(pa);
+                                        insert_last5(pa); fnd_play5_time++;
                                     }
                                     else
                                     {
-                                        insert_last5(pa * 2);
+                                        insert_last5(pa * 2); fnd_play5_time++;
                                     }
                                 }
                             
@@ -752,6 +855,7 @@ int main(void)
         }
     }
 
+    
     lcdtextwrite("1", "The End");
     sleep(3);
     lcd_exit();
