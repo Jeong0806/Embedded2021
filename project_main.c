@@ -46,6 +46,7 @@ int main(void)
         if(return_value == -1) break;
     }
 
+    pwmLedInit();
     ledLibinit();
     buttonInit();
     buzzerInit();
@@ -91,33 +92,43 @@ int main(void)
                         break;
                         case KEY_BACK:
                         delete_song(1); // 1번 곡 삭제
+                        color_green();
                         lcdtextwrite("1", "1th song deleted");
                         fnd_play1_time = 0;
                         sleep(1);
+                        color_off();
                         break;
                         case KEY_SEARCH:
                         delete_song(2); // 2번 곡 삭제
+                        color_green();
                         lcdtextwrite("1", "2th song deleted");
                         fnd_play2_time = 0;
                         sleep(1);
+                        color_off();
                         break;
                         case KEY_MENU:
                         delete_song(3); // 3번 곡 삭제
+                        color_green();
                         lcdtextwrite("1", "3th song deleted");
                         fnd_play3_time = 0;
                         sleep(1);
+                        color_off();
                         break;
                         case KEY_VOLUMEUP:
                         delete_song(4); // 4번 곡 삭제
+                        color_green();
                         lcdtextwrite("1", "4th song deleted");
                         fnd_play4_time = 0;
                         sleep(1);
+                        color_off();
                         break;
                         case KEY_VOLUMEDOWN:
                         delete_song(5); // 5번 곡 삭제
+                        color_green();
                         lcdtextwrite("1", "5th song deleted");
                         fnd_play5_time = 0;
                         sleep(1);
+                        color_off();
                         break;
                     }
                     
@@ -148,6 +159,7 @@ int main(void)
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 1");
                     pid = fork();
+                    color_blue();
                     if(pid > 0)
                     {
                         print_list(1); // 저장된 곡 재생
@@ -166,11 +178,13 @@ int main(void)
                         fndDisp(count, 0);
                         exit(1234);
                     }
+                    color_off();
                     break;
                     case KEY_SEARCH:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 2");
                     pid = fork();
+                    color_blue();
                     if(pid > 0)
                     {
                         print_list(2); // 저장된 곡 재생
@@ -189,11 +203,13 @@ int main(void)
                         fndDisp(count, 0);
                         exit(1234);
                     }
+                    color_off();
                     break;
                     case KEY_MENU:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 3");
                     pid = fork();
+                    color_blue();
                     if(pid > 0)
                     {
                         print_list(3); // 저장된 곡 재생
@@ -212,11 +228,13 @@ int main(void)
                         fndDisp(count, 0);
                         exit(1234);
                     }
+                    color_off();
                     break;
                     case KEY_VOLUMEUP:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 4");
                     pid = fork();
+                    color_blue();
                     if(pid > 0)
                     {
                         print_list(4); // 저장된 곡 재생
@@ -235,11 +253,13 @@ int main(void)
                         fndDisp(count, 0);
                         exit(1234);
                     }
+                    color_off();
                     break;
                     case KEY_VOLUMEDOWN:
                     buzzerEnable(1);
                     lcdtextwrite("1", "playing 5");
                     pid = fork();
+                    color_blue();
                     if(pid > 0)
                     {
                         print_list(5); // 저장된 곡 재생
@@ -258,6 +278,7 @@ int main(void)
                         fndDisp(count, 0);
                         exit(1234);
                     }
+                    color_off();
                     break;
 
                 }
@@ -281,6 +302,7 @@ int main(void)
                     case KEY_BACK:
                     home = 0; // while문에서 빠져나오기 위한 변수 -> 1번째 곡의 작곡을 멈추기 위한 것.
                     lcdtextwrite("2", "making 1th music");
+                    color_red();
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -371,10 +393,12 @@ int main(void)
                         }
                     }
                     lcdtextwrite("2", "maked 1th music");
+                    color_off();
                     break;
                     case KEY_SEARCH:
                     home = 0; // while문에서 빠져나오기 위한 변수 -> 2번째 곡의 작곡을 멈추기 위한 것.
                     lcdtextwrite("2", "making 2th music");
+                    color_red();
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -464,10 +488,12 @@ int main(void)
                         }
                     }
                     lcdtextwrite("2", "maked 2th music");
+                    color_off();
                     break;
                     case KEY_MENU:
                     home = 0; // while문에서 빠져나오기 위한 변수 -> 3번째 곡의 작곡을 멈추기 위한 것.
                     lcdtextwrite("2", "making 3th music");
+                    color_red();
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -558,10 +584,12 @@ int main(void)
                         }
                     }
                     lcdtextwrite("2", "maked 3th music");
+                    color_off();
                     break;
                     case KEY_VOLUMEUP:
                     home = 0; // while문에서 빠져나오기 위한 변수 -> 4번째 곡의 작곡을 멈추기 위한 것.
                     lcdtextwrite("2", "making 4th music");
+                    color_red();
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -652,10 +680,12 @@ int main(void)
                         }
                     }
                     lcdtextwrite("2", "maked 4th music");
+                    color_off();
                     break;
                     case KEY_VOLUMEDOWN:
                     home = 0; // while문에서 빠져나오기 위한 변수 -> 5번째 곡의 작곡을 멈추기 위한 것.
                     lcdtextwrite("2", "making 5th music");
+                    color_red();
                     while(1)
                     {
                         doo = 262; re = 294; mi = 330; pa = 349;
@@ -746,6 +776,7 @@ int main(void)
                         }
                     }
                     lcdtextwrite("2", "maked 5th music");
+                    color_off();
                     break;
                 }
             }
@@ -856,13 +887,14 @@ int main(void)
         }
     }
 
-    
+    color_off();
     lcdtextwrite("1", "The End");
     sleep(3);
     lcd_exit();
     ledLibExit();
     buzzerExit();
     buttonExit();
+    pwmInactiveAll();
 
     return 0;
 }

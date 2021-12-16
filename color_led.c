@@ -31,79 +31,81 @@
 
 #define PWM_PERIOD_NS 1000000 // 1000ns -> 1kHz
 
+static int f2 = 0;
+
 int pwmActiveAll(void)
 {
-    int fd = 0;
-    fd = open(COLOR_LED_DEN_R_ PWM_EXPORT, O_WRONLY);
-    write(fd, &"0", 1);
-    close(fd);
+    f2 = 0;
+    f2 = open(COLOR_LED_DEN_R_ PWM_EXPORT, O_WRONLY);
+    write(f2, &"0", 1);
+    close(f2);
 
-    fd = open(COLOR_LED_DEN_G_ PWM_EXPORT, O_WRONLY);
-    write(fd, &"0", 1);
-    close(fd);
+    f2 = open(COLOR_LED_DEN_G_ PWM_EXPORT, O_WRONLY);
+    write(f2, &"0", 1);
+    close(f2);
 
-    fd = open(COLOR_LED_DEN_B_ PWM_EXPORT, O_WRONLY);
-    write(fd, &"0", 1);
-    close(fd);
+    f2 = open(COLOR_LED_DEN_B_ PWM_EXPORT, O_WRONLY);
+    write(f2, &"0", 1);
+    close(f2);
 
     return 1;
 }
 
 int pwmInactiveAll(void)
 {
-    int fd = 0;
-    fd = open(COLOR_LED_DEN_R_ PWM_UNEXPORT, O_WRONLY);
-    write(fd, &"0", 1);
-    close(fd);
+    f2 = 0;
+    f2 = open(COLOR_LED_DEN_R_ PWM_UNEXPORT, O_WRONLY);
+    write(f2, &"0", 1);
+    close(f2);
 
-    fd = open(COLOR_LED_DEN_G_ PWM_UNEXPORT, O_WRONLY);
-    write(fd, &"0", 1);
-    close(fd);
+    f2 = open(COLOR_LED_DEN_G_ PWM_UNEXPORT, O_WRONLY);
+    write(f2, &"0", 1);
+    close(f2);
 
-    fd = open(COLOR_LED_DEN_B_ PWM_UNEXPORT, O_WRONLY);
-    write(fd, &"0", 1);
-    close(fd);
+    f2 = open(COLOR_LED_DEN_B_ PWM_UNEXPORT, O_WRONLY);
+    write(f2, &"0", 1);
+    close(f2);
 
     return 1;
 }
 
 int pwmSetDuty(int dutyCycle, int pwmIndex)
 {
-    int fd = 0;
+    f2 = 0;
     switch(pwmIndex)
     {
         case 0:
-        fd = open(COLOR_LED_DEN_R_ PWM_DUTY, O_WRONLY);
+        f2 = open(COLOR_LED_DEN_R_ PWM_DUTY, O_WRONLY);
         break;
         case 1:
-        fd = open(COLOR_LED_DEN_G_ PWM_DUTY, O_WRONLY);
+        f2 = open(COLOR_LED_DEN_G_ PWM_DUTY, O_WRONLY);
         break;
         case 2:
-        fd = open(COLOR_LED_DEN_B_ PWM_DUTY, O_WRONLY);
+        f2 = open(COLOR_LED_DEN_B_ PWM_DUTY, O_WRONLY);
         break;
     }
-    dprintf(fd, "%d", dutyCycle);
-    close(fd);
+    dprintf(f2, "%d", dutyCycle);
+    close(f2);
     return 1;
 }
 
 int pwmSetPeriod(int Period, int pwmIndex)
 {
-    int fd = 0;
+    f2 = 0;
     switch(pwmIndex)
     {
         case 0:
-        fd = open(COLOR_LED_DEN_R_ PWM_PERIOD, O_WRONLY);
+        f2 = open(COLOR_LED_DEN_R_ PWM_PERIOD, O_WRONLY);
         break;
         case 1:
-        fd = open(COLOR_LED_DEN_G_ PWM_PERIOD, O_WRONLY);
+        f2 = open(COLOR_LED_DEN_G_ PWM_PERIOD, O_WRONLY);
         break;
         case 2:
-        fd = open(COLOR_LED_DEN_B_ PWM_PERIOD, O_WRONLY);
+        f2 = open(COLOR_LED_DEN_B_ PWM_PERIOD, O_WRONLY);
         break;
     }
-    dprintf(fd, "%d", Period);
-    close(fd);
+    dprintf(f2, "%d", Period);
+    close(f2);
     return 1;
 }
 
@@ -120,20 +122,52 @@ int pwmSetPercent(int percent, int ledColor)
     return 0;
 }
 
+void color_red(void)
+{
+
+    int duty = (100 - 0) * PWM_PERIOD_NS / 100;
+    pwmSetDuty(0, 0); pwmSetDuty(duty, 1); pwmSetDuty(duty, 2);  
+    
+}
+
+void color_green(void)
+{
+
+    int duty = (100 - 0) * PWM_PERIOD_NS / 100;
+    pwmSetDuty(duty, 0); pwmSetDuty(0, 1); pwmSetDuty(duty, 2);  
+    
+}
+
+void color_blue(void)
+{
+
+    int duty = (100 - 0) * PWM_PERIOD_NS / 100;
+    pwmSetDuty(duty, 0); pwmSetDuty(duty, 1); pwmSetDuty(0, 2);  
+    
+}
+
+void color_off(void)
+{
+    int duty = (100 - 0) * PWM_PERIOD_NS / 100;
+    pwmSetDuty(duty, 0); pwmSetDuty(duty, 1); pwmSetDuty(duty, 2);
+}
+
+
+
 int pwmStartAll(void)
 {
-    int fd = 0;
-    fd = open(COLOR_LED_DEN_R_ PWM_ENABLE, O_WRONLY);
-    write(fd, &"1", 1);
-    close(fd);
+    f2 = 0;
+    f2 = open(COLOR_LED_DEN_R_ PWM_ENABLE, O_WRONLY);
+    write(f2, &"1", 1);
+    close(f2);
 
-    fd = open(COLOR_LED_DEN_G_ PWM_ENABLE, O_WRONLY);
-    write(fd, &"1", 1);
-    close(fd);
+    f2 = open(COLOR_LED_DEN_G_ PWM_ENABLE, O_WRONLY);
+    write(f2, &"1", 1);
+    close(f2);
 
-    fd = open(COLOR_LED_DEN_B_ PWM_ENABLE, O_WRONLY);
-    write(fd, &"1", 1);
-    close(fd);
+    f2 = open(COLOR_LED_DEN_B_ PWM_ENABLE, O_WRONLY);
+    write(f2, &"1", 1);
+    close(f2);
 
     return 1;
 }
