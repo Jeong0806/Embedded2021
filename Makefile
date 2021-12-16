@@ -3,8 +3,8 @@ AR = arm-linux-gnueabi-ar
 
 all: libMyPeri.a project_main.elf
 
-libMyPeri.a: led.o button.o buzzer.o fnd.o lcdtext.o color_led.o temperature.o accelMagGyro.o
-	$(AR) rc libMyPeri.a led.o button.o  buzzer.o fnd.o lcdtext.o color_led.o temperature.o accelMagGyro.o
+libMyPeri.a: led.o button.o buzzer.o fnd.o lcdtext.o color_led.o
+	$(AR) rc libMyPeri.a led.o button.o  buzzer.o fnd.o lcdtext.o color_led.o
 
 led.o: led.h led.c
 	$(CC) led.c -o led.o -c
@@ -24,13 +24,7 @@ lcdtext.o: lcdtext.h lcdtext.c
 color_led.o: color_led.h color_led.c
 	$(CC) color_led.c -o color_led.o -c
 
-temperature.o: temperature.h temperature.c
-	$(CC) temperature.c -o temperature.o -c
-
-accelMagGyro.o: accelMagGyro.h accelMagGyro.c
-	$(CC) accelMagGyro.c -o accelMagGyro.o -c
-
-project_main.elf: led.h button.h buzzer.h fnd.h lcdtext.h color_led.h temperature.h accelMagGyro.h  libMyPeri.a
+project_main.elf: led.h button.h buzzer.h fnd.h lcdtext.h color_led.h libMyPeri.a
 	$(CC) --static -c -o project_main.o project_main.c
 	$(CC) project_main.o -l MyPeri -L. -lpthread -o project_main.elf
 	scp project_main.elf ecube@192.168.0.9:/home/ecube

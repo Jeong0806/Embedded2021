@@ -18,8 +18,6 @@
 #include "fnd.h"
 #include "lcdtext.h"
 #include "color_led.h"
-#include "temperature.h"
-#include "accelMagGyro.h"
 
 
 int main(void)
@@ -787,6 +785,7 @@ int main(void)
         }
         else
         {
+            lcdtextwrite("1", "playing mode");
             if(messageRxData.pressed)
             {
                 printf("EV_KEY(");

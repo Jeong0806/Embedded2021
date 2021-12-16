@@ -22,14 +22,6 @@ char gBuzzerBaseSysDir[128]; //  /sys/bus/platform/devices/peribuzzer.숫자 가
 
 static int fp = 0;
 
-
-typedef int element;
-
-typedef struct ListNode {
-    element data;
-    struct ListNode *link;
-}ListNode;
-
 ListNode *head1 = NULL;
 ListNode *head2 = NULL;
 ListNode *head3 = NULL;
@@ -159,15 +151,6 @@ int findBuzzerSysPath(){ //못찾으면 ifNotFound -> 1을 리턴
     return ifNotFound;
 }
 
-void doHelp(void)
-{
-    printf("Usage:\n");
-    printf("buzzertest <buzzerN> \n");
-    printf("buzzerNo: \n");
-    printf("do(1),re(2),mi(3),fa(4),sol(5),ra(6),si(7),do(8) \n");
-    printf("off(0)\n");
-}
-
 void buzzerEnable(int bEnable)
 {
     char path[200];
@@ -208,62 +191,6 @@ int buzzerInit(void)
     buzzerEnable(1);
     return 1;
 }
-/*
-int buzzerPlaySong(int scale)
-{
-    char path[200];
-    sprintf(path, "%s%s", gBuzzerBaseSysDir, BUZZER_FREQUENCY_NAME);
-    fp = open(path, O_WRONLY);
-    printf("%s\n", path);
-    int i = 0;
-    switch(scale)
-    {
-        case 1:
-        while(i != 8)
-        {
-            
-            dprintf(fp, "%d", musicScale1[i++]);
-            sleep(1);
-        }
-        buzzerEnable(0);
-        break;
-        case 2:
-        while(i != 8)
-        {
-            dprintf(fp, "%d", musicScale2[i++]);
-            sleep(1);
-        }
-        buzzerEnable(0);
-        break;
-        case 3:
-        while(i != 8)
-        {
-            dprintf(fp, "%d", musicScale3[i++]);
-            sleep(1);
-        }
-        buzzerEnable(0);
-        break;
-        case 4:
-        while(i != 8)
-        {
-            dprintf(fp, "%d", musicScale4[i++]);
-            sleep(1);
-        }
-        buzzerEnable(0);
-        break;
-        case 5:
-        while(i != 8)
-        {
-            dprintf(fp, "%d", musicScale5[i++]);
-            sleep(1);
-        }
-        buzzerEnable(0);
-        break;
-    }
-    
-    return 1;
-}
-*/
 
 void print_list(int num)
 {
@@ -447,13 +374,6 @@ int list_number_of_song(void)
     lcd_close();
 
     return num;
-}
-
-int buzzerStopSong(void)
-{
-    printf("stop song\n");
-    close(fp);
-    return 1;
 }
 
 void delete_song(int num)
